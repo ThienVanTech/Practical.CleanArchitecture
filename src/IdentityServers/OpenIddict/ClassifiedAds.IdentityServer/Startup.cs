@@ -101,13 +101,15 @@ public class Startup
                 .SetUserInfoEndpointUris("connect/userinfo");
 
             // OAuth 2.0 grant types.
-            // NOTE: AllowPasswordFlow (ROPC) and AllowHybridFlow are OAuth 2.0-only.
-            // They are removed in OAuth 2.1 (draft-ietf-oauth-v2-1).
-            // Consider migrating to Authorization Code + PKCE for full OAuth 2.1 compliance.
+            // NOTE: AllowPasswordFlow (ROPC) is an OAuth 2.0-only grant removed in OAuth 2.1.
+            // It is kept here solely to support the ClassifiedAds.ApiIntegrationTests client,
+            // which uses it for headless token acquisition in automated tests.
+            // No user-facing client (WebMVC, Blazor, SPA) is permitted to use this grant.
+            // AllowHybridFlow is also OAuth 2.0-only and not part of OAuth 2.1.
             options.AllowAuthorizationCodeFlow()
                    .AllowHybridFlow()           // OAuth 2.0 only — not part of OAuth 2.1
                    .AllowClientCredentialsFlow()
-                   .AllowPasswordFlow()         // OAuth 2.0 only (ROPC) — deprecated in OAuth 2.1
+                   .AllowPasswordFlow()         // OAuth 2.0 only (ROPC) — used by ClassifiedAds.ApiIntegrationTests only
                    .AllowRefreshTokenFlow();
 
             options.RegisterScopes(Scopes.OpenId, Scopes.Profile, Scopes.OfflineAccess, "ClassifiedAds.WebAPI");
