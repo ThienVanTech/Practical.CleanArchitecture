@@ -1,7 +1,7 @@
 const environment = {
   name: "production",
   OpenIdConnect: {
-    Authority: "https://localhost:44367",
+    Authority: "https://localhost:44368",
     ClientId: "ClassifiedAds.React",
   },
   ResourceServer: {

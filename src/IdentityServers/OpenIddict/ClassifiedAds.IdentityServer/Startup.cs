@@ -132,9 +132,9 @@ public class Startup
             options.UseAspNetCore();
         });
 
-        services.AddDataProtection()
-            .PersistKeysToDbContext<AdsDbContext>()
-            .SetApplicationName("ClassifiedAds");
+        //services.AddDataProtection()
+        //    .PersistKeysToDbContext<AdsDbContext>()
+        //    .SetApplicationName("ClassifiedAds");
 
         services.AddCaches(AppSettings.Caching);
 
@@ -167,7 +167,7 @@ public class Startup
             .AllowAnyMethod()
         );
 
-        app.UseSecurityHeaders(AppSettings.SecurityHeaders);
+        //app.UseSecurityHeaders(AppSettings.SecurityHeaders);
 
         app.UseAuthentication();
         app.UseAuthorization();

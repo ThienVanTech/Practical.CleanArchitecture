@@ -26,8 +26,10 @@ builder.WebHost.UseClassifiedAdsLogger(configuration =>
 var appSettings = new AppSettings();
 configuration.Bind(appSettings);
 
-services.AddOcelot()
-    .AddDelegatingHandler<DebuggingHandler>(true);
+//services.AddOcelot()
+//    .AddDelegatingHandler<DebuggingHandler>(true);
+
+services.AddOcelot();
 
 services.PostConfigure<FileConfiguration>(fileConfiguration =>
 {

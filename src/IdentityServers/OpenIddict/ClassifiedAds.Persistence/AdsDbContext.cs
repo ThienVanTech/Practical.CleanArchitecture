@@ -1,5 +1,4 @@
 ﻿using ClassifiedAds.Domain.Repositories;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAds.Persistence;
 
-public class AdsDbContext : DbContext, IUnitOfWork, IDataProtectionKeyContext
+public class AdsDbContext : DbContext, IUnitOfWork
 {
     private IDbContextTransaction _dbContextTransaction;
 
@@ -18,8 +17,6 @@ public class AdsDbContext : DbContext, IUnitOfWork, IDataProtectionKeyContext
         : base(options)
     {
     }
-
-    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     public async Task<IDisposable> BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted, CancellationToken cancellationToken = default)
     {

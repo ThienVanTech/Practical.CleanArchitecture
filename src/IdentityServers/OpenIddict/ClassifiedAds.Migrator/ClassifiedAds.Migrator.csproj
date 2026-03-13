@@ -18,12 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Migrations\**\*.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="dbup" Version="5.0.41" />
     <PackageReference Include="Polly" Version="8.6.6" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">

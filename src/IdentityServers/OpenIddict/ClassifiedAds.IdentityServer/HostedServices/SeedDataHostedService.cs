@@ -270,11 +270,13 @@ public class SeedDataHostedService : IHostedService
             DisplayName = "ClassifiedAds React",
             RedirectUris =
             {
-                new Uri("http://localhost:3000/oidc-login-redirect")
+                new Uri("http://localhost:3000/oidc-login-redirect"),
+                new Uri("http://localhost:3001/oidc-login-redirect")
             },
             PostLogoutRedirectUris =
             {
-                new Uri("http://localhost:3000/?postLogout=true")
+                new Uri("http://localhost:3000/?postLogout=true"),
+                new Uri("http://localhost:3001/?postLogout=true"),
             },
             Permissions =
             {
