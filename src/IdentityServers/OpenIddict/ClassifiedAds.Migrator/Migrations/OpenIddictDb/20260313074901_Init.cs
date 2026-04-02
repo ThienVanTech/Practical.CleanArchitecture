@@ -16,18 +16,21 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ApplicationType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ClientId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     ClientSecret = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ConcurrencyToken = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     ConsentType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DisplayNames = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JsonWebKeySet = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Permissions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostLogoutRedirectUris = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RedirectUris = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Settings = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +96,7 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                     ReferenceId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Subject = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Type = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {

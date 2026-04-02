@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
 {
     [DbContext(typeof(OpenIddictDbContext))]
-    [Migration("20231215145407_Init")]
+    [Migration("20260313074901_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "10.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -31,12 +31,20 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ApplicationType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("ClientId")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ClientSecret")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClientType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ConcurrencyToken")
                         .IsConcurrencyToken()
@@ -51,6 +59,9 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayNames")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JsonWebKeySet")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Permissions")
@@ -68,9 +79,8 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                     b.Property<string>("Requirements")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<string>("Settings")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -210,8 +220,8 @@ namespace ClassifiedAds.Migrator.Migrations.OpenIddictDb
                         .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("Type")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 

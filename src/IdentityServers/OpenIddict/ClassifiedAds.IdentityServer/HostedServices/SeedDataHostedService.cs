@@ -83,7 +83,6 @@ public class SeedDataHostedService : IHostedService
 
                 OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
                 OpenIddictConstants.Permissions.GrantTypes.ClientCredentials,
-                OpenIddictConstants.Permissions.GrantTypes.Password,
                 OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
 
                 OpenIddictConstants.Permissions.Prefixes.Scope + "openid",
@@ -120,7 +119,6 @@ public class SeedDataHostedService : IHostedService
 
                 OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
                 OpenIddictConstants.Permissions.GrantTypes.ClientCredentials,
-                OpenIddictConstants.Permissions.GrantTypes.Password,
                 OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
 
                 OpenIddictConstants.Permissions.Prefixes.Scope + "openid",
@@ -132,6 +130,30 @@ public class SeedDataHostedService : IHostedService
             Requirements =
             {
                 OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
+            },
+            ClientType = OpenIddictConstants.ClientTypes.Confidential,
+        }, cancellationToken);
+
+        // Dedicated client for API integration tests that use the Resource Owner Password
+        // Credentials grant (ROPC) to obtain tokens headlessly (no browser required).
+        // PKCE is not applicable to the Password Grant and is therefore not required here.
+        // This client must NOT be used in production user-facing flows.
+        await UpsertClientApplication(manager, new OpenIddictApplicationDescriptor
+        {
+            ClientId = "ClassifiedAds.ApiIntegrationTests",
+            ClientSecret = "secret",
+            DisplayName = "ClassifiedAds API Integration Tests",
+            Permissions =
+            {
+                OpenIddictConstants.Permissions.Endpoints.Token,
+
+                OpenIddictConstants.Permissions.GrantTypes.Password,
+                OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
+
+                OpenIddictConstants.Permissions.Prefixes.Scope + "openid",
+                OpenIddictConstants.Permissions.Scopes.Profile,
+                OpenIddictConstants.Permissions.Prefixes.Scope + "ClassifiedAds.WebAPI",
+                OpenIddictConstants.Permissions.Prefixes.Scope + "offline_access",
             },
             ClientType = OpenIddictConstants.ClientTypes.Confidential,
         }, cancellationToken);
@@ -248,11 +270,13 @@ public class SeedDataHostedService : IHostedService
             DisplayName = "ClassifiedAds React",
             RedirectUris =
             {
-                new Uri("http://localhost:3000/oidc-login-redirect")
+                new Uri("http://localhost:3000/oidc-login-redirect"),
+                new Uri("http://localhost:3001/oidc-login-redirect")
             },
             PostLogoutRedirectUris =
             {
-                new Uri("http://localhost:3000/?postLogout=true")
+                new Uri("http://localhost:3000/?postLogout=true"),
+                new Uri("http://localhost:3001/?postLogout=true"),
             },
             Permissions =
             {

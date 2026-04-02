@@ -100,10 +100,16 @@ public class Startup
                 .SetEndSessionEndpointUris("connect/logout")
                 .SetUserInfoEndpointUris("connect/userinfo");
 
+            // OAuth 2.0 grant types.
+            // NOTE: AllowPasswordFlow (ROPC) is an OAuth 2.0-only grant removed in OAuth 2.1.
+            // It is kept here solely to support the ClassifiedAds.ApiIntegrationTests client,
+            // which uses it for headless token acquisition in automated tests.
+            // No user-facing client (WebMVC, Blazor, SPA) is permitted to use this grant.
+            // AllowHybridFlow is also OAuth 2.0-only and not part of OAuth 2.1.
             options.AllowAuthorizationCodeFlow()
-                   .AllowHybridFlow()
+                   .AllowHybridFlow()           // OAuth 2.0 only — not part of OAuth 2.1
                    .AllowClientCredentialsFlow()
-                   .AllowPasswordFlow()
+                   .AllowPasswordFlow()         // OAuth 2.0 only (ROPC) — used by ClassifiedAds.ApiIntegrationTests only
                    .AllowRefreshTokenFlow();
 
             options.RegisterScopes(Scopes.OpenId, Scopes.Profile, Scopes.OfflineAccess, "ClassifiedAds.WebAPI");
@@ -126,9 +132,9 @@ public class Startup
             options.UseAspNetCore();
         });
 
-        services.AddDataProtection()
-            .PersistKeysToDbContext<AdsDbContext>()
-            .SetApplicationName("ClassifiedAds");
+        //services.AddDataProtection()
+        //    .PersistKeysToDbContext<AdsDbContext>()
+        //    .SetApplicationName("ClassifiedAds");
 
         services.AddCaches(AppSettings.Caching);
 
@@ -161,7 +167,7 @@ public class Startup
             .AllowAnyMethod()
         );
 
-        app.UseSecurityHeaders(AppSettings.SecurityHeaders);
+        //app.UseSecurityHeaders(AppSettings.SecurityHeaders);
 
         app.UseAuthentication();
         app.UseAuthorization();
