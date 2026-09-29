@@ -1,12 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core";
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { ActionIconComponent } from "./action-icon.component";
 
 @Component({
   selector: "app-pagination",
   templateUrl: "./pagination.component.html",
   styleUrls: ["./pagination.component.css"],
   standalone: true,
-  imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [ActionIconComponent],
 })
 export class PaginationComponent implements OnChanges {
   pageNumbers: Array<number> = [];

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ChangeDetectionStrategy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -6,17 +6,20 @@ import { FileService } from "../file.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { IFile } from "../file";
 import { NgModel, NgForm } from "@angular/forms";
-import { IAuditLogEntry } from "src/app/auditlogs/audit-log";
+import { IAuditLogEntry } from "../../auditlogs/audit-log";
 import { MatDialog } from "@angular/material/dialog";
-import { GuidEmpty } from "src/app/shared/constants";
+import { GuidEmpty } from "../../shared/constants";
 import { MatDialogModule } from "@angular/material/dialog";
+import { NgIcon } from "@ng-icons/core";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   selector: "app-edit-file",
   templateUrl: "./edit-file.component.html",
   styleUrls: ["./edit-file.component.css"],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, MatDialogModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [CommonModule, FormsModule, RouterModule, MatDialogModule, NgIcon, ActionIconComponent],
 })
 export class EditFileComponent implements OnInit {
   file: IFile = {

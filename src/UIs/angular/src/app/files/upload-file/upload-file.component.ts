@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -6,14 +6,18 @@ import { IFile } from "../file";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FileService } from "../file.service";
 import { NgModel, NgForm } from "@angular/forms";
-import { GuidEmpty } from "src/app/shared/constants";
+import { GuidEmpty } from "../../shared/constants";
+import { NgIcon } from "@ng-icons/core";
+import { FilePickerComponent } from "../../shared/file-picker.component";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   selector: "app-upload-file",
   templateUrl: "./upload-file.component.html",
   styleUrls: ["./upload-file.component.css"],
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [FormsModule, RouterModule, NgIcon, ActionIconComponent, FilePickerComponent],
 })
 export class UploadFileComponent implements OnInit {
   file: IFile = {
@@ -45,8 +49,8 @@ export class UploadFileComponent implements OnInit {
     console.log("in onBlur: ", field.valid);
   }
 
-  handleFileInput(files: FileList) {
-    this.file.formFile = files.item(0);
+  handleFileInput(files: FileList | null) {
+    this.file.formFile = files?.item(0) ?? null;
   }
 
   onSubmit(form: NgForm) {

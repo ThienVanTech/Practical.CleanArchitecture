@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 
 import * as actions from "../actions";
+import ActionIcon from "../../../components/ActionIcon/ActionIcon";
+import FilePicker from "../../../components/FilePicker/FilePicker";
 import { checkValidity } from "../../../shared/utility";
 import axios from "../axios";
 
@@ -197,11 +199,11 @@ const ListConfigurationEntries = (props: any) => {
       <td>{formatDateTime(entry.updatedDateTime)}</td>
       <td>
         <button type="button" className="btn btn-primary" onClick={() => openUpdateModal(entry)}>
-          Edit
+          <ActionIcon action="edit" /> Edit
         </button>
         &nbsp;
         <button type="button" className="btn btn-danger" onClick={() => openDeleteModal(entry)}>
-          Delete
+          <ActionIcon action="delete" /> Delete
         </button>
       </td>
     </tr>
@@ -225,7 +227,7 @@ const ListConfigurationEntries = (props: any) => {
   const deleteModal = (
     <Modal show={deleteModalOpen} onHide={deleteCanceled}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete Entry</Modal.Title>
+        <Modal.Title><ActionIcon action="delete" />Delete Entry</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         Are you sure you want to delete
@@ -233,10 +235,10 @@ const ListConfigurationEntries = (props: any) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={deleteCanceled}>
-          No
+          <ActionIcon action="cancel" /> No
         </Button>
         <Button variant="primary" onClick={deleteConfirmed}>
-          Yes
+          <ActionIcon action="confirm" /> Yes
         </Button>
       </Modal.Footer>
     </Modal>
@@ -245,7 +247,7 @@ const ListConfigurationEntries = (props: any) => {
   const addUpdateModal = (
     <Modal show={addUpdateModalOpen && !props.saved} onHide={addUpdateCanceled}>
       <Modal.Header closeButton>
-        <Modal.Title>{!selectingEntry?.id ? "Add" : "Update"}</Modal.Title>
+        <Modal.Title><ActionIcon action={!selectingEntry?.id ? "add" : "edit"} />{!selectingEntry?.id ? "Add" : "Update"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={addUpdateConfirmed}>
@@ -320,7 +322,7 @@ const ListConfigurationEntries = (props: any) => {
           <div className="mb-3 row">
             <label className="col-sm-3 col-form-label"></label>
             <div className="col-sm-9">
-              <button className="btn btn-primary">Save</button>
+              <button className="btn btn-primary"><ActionIcon action="save" /> Save</button>
             </div>
           </div>
         </form>
@@ -331,27 +333,18 @@ const ListConfigurationEntries = (props: any) => {
   const importExcelModal = (
     <Modal show={importExcelModalOpen} onHide={importExcelCanceled}>
       <Modal.Header closeButton>
-        <Modal.Title>Import Excel</Modal.Title>
+        <Modal.Title><ActionIcon action="import" />Import Excel</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={importExcelConfirmed}>
           <div className="mb-3 row">
             <div className="col-sm-12">
-              <input
-                id="importingFile"
-                type="file"
-                name="importingFile"
-                className={
-                  "form-control " + (importExcelFormSubmitted && !importingFile ? "is-invalid" : "")
-                }
-                onChange={fileChanged}
-              />
-              <span className="invalid-feedback"> Select a file </span>
+              <FilePicker id="importingFile" name="importingFile" label="Excel file" hint="Excel files (.xlsx)" file={importingFile} invalid={importExcelFormSubmitted && !importingFile} onChange={fileChanged} accept=".xlsx" />
             </div>
           </div>
           <div className="mb-3 row">
             <div className="col-sm-12" style={{ textAlign: "center" }}>
-              <button className="btn btn-primary">Import</button>
+              <button className="btn btn-primary"><ActionIcon action="import" /> Import</button>
             </div>
           </div>
         </form>
@@ -363,18 +356,18 @@ const ListConfigurationEntries = (props: any) => {
     <div>
       <div className="card">
         <div className="card-header">
-          Settings
+          <ActionIcon action="settings" />Settings
           <div style={{ float: "right" }}>
             <button type="button" className="btn btn-secondary" onClick={exportAsExcel}>
-              Export as Excel
+              <ActionIcon action="export" /> Export as Excel
             </button>
             &nbsp;
             <button className="btn btn-primary" onClick={() => openAddModal()}>
-              Add
+              <ActionIcon action="add" /> Add
             </button>
             &nbsp;
             <button className="btn btn-primary" onClick={() => openImportExcelModal()}>
-              Import Excel
+              <ActionIcon action="import" /> Import Excel
             </button>
           </div>
         </div>

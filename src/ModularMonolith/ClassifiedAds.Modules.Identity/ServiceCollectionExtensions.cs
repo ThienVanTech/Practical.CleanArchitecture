@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Contracts.Identity.Services;
+using ClassifiedAds.Contracts.Identity.Services;
 using ClassifiedAds.Modules.Identity;
 using ClassifiedAds.Modules.Identity.ConfigurationOptions;
 using ClassifiedAds.Modules.Identity.Entities;
@@ -155,11 +155,6 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddAuthorizationPolicies(Assembly.GetExecutingAssembly());
-    }
-
-    public static IMvcBuilder AddIdentityModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateIdentityDb(this IApplicationBuilder app)

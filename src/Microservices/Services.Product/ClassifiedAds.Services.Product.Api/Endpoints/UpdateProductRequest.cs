@@ -1,5 +1,4 @@
-﻿using ClassifiedAds.Application;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
+using ClassifiedAds.Application;
 using ClassifiedAds.Services.Product.Authorization;
 using ClassifiedAds.Services.Product.Commands;
 using ClassifiedAds.Services.Product.Queries;
@@ -43,9 +42,9 @@ public class UpdateProductResponse
     public string Description { get; set; }
 }
 
-public class UpdateProductRequestHandler : IEndpointHandler
+public class UpdateProductRequestHandler
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPut("api/products/{id}", HandleAsync)
         .RequireAuthorization(Permissions.UpdateProduct)

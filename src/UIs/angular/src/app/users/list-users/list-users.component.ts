@@ -1,18 +1,20 @@
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ChangeDetectionStrategy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { IUser } from "../user";
-import { IAuditLogEntry } from "src/app/auditlogs/audit-log";
+import { IAuditLogEntry } from "../../auditlogs/audit-log";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { UserService } from "../user.service";
 import { MatDialogModule } from "@angular/material/dialog";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   selector: "app-list-users",
   templateUrl: "./list-users.component.html",
   styleUrls: ["./list-users.component.css"],
   standalone: true,
-  imports: [CommonModule, RouterModule, MatDialogModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [CommonModule, RouterModule, MatDialogModule, ActionIconComponent],
 })
 export class ListUsersComponent implements OnInit {
   users: IUser[] = [];

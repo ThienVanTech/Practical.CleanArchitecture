@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Application.ConfigurationEntries.DTOs;
+using ClassifiedAds.Application.ConfigurationEntries.DTOs;
 using ClassifiedAds.Application.Products.DTOs;
 using ClassifiedAds.CrossCuttingConcerns.Csv;
 using ClassifiedAds.CrossCuttingConcerns.Excel;
@@ -16,8 +16,9 @@ using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.Endpoints;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
 using ClassifiedAds.Persistence;
+using ClassifiedAds.WebAPI;
 using ClassifiedAds.WebAPI.ConfigurationOptions;
-using ClassifiedAds.WebAPI.Hubs;
+using ClassifiedAds.WebAPI.Configurations;
 using ClassifiedAds.WebAPI.RateLimiterPolicies;
 using ClassifiedAds.WebAPI.Tenants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -57,17 +58,10 @@ services.AddMonitoringServices(appSettings.Monitoring);
 
 services.AddExceptionHandler<GlobalExceptionHandler>();
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-});
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
-services.AddSignalR();
+services.AddClassifiedAdsSignalR(appSettings);
 
 services.AddCors(options =>
 {
@@ -305,8 +299,8 @@ app.UseHealthChecks("/healthz", new HealthCheckOptions
     },
 });
 
-app.MapControllers();
-app.MapHub<NotificationHub>("/hubs/notification").RequireCors("SignalRHubs");
+app.MapApplicationEndpoints();
+app.MapClassifiedAdsHubs();
 
 app.MapProcessInforEndpoint();
 app.MapThreadPoolInforEndpoint();

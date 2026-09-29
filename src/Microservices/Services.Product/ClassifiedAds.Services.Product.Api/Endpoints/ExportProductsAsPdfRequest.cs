@@ -1,6 +1,5 @@
-﻿using ClassifiedAds.Application;
+using ClassifiedAds.Application;
 using ClassifiedAds.CrossCuttingConcerns.Pdf;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
 using ClassifiedAds.Services.Product.Pdf;
 using ClassifiedAds.Services.Product.Queries;
 using ClassifiedAds.Services.Product.RateLimiterPolicies;
@@ -12,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAds.Services.Product.Api.Endpoints;
 
-public class ExportProductsAsPdfRequest : IEndpointHandler
+public class ExportProductsAsPdfRequest
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet("api/products/exportaspdf", HandleAsync)
         .RequireAuthorization()

@@ -1,8 +1,13 @@
-import { enableProdMode, importProvidersFrom, inject, provideZoneChangeDetection } from "@angular/core";
+import {
+  enableProdMode,
+  importProvidersFrom,
+  inject,
+  provideZoneChangeDetection,
+} from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { BrowserModule } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -15,6 +20,15 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatDialogModule } from "@angular/material/dialog";
+import { provideIcons } from "@ng-icons/core";
+import {
+  lucideCheck, lucideChevronLeft, lucideChevronRight, lucideChevronsLeft,
+  lucideChevronsRight, lucideClipboard, lucideClipboardList, lucideDownload,
+  lucideExternalLink, lucideEye, lucideEyeOff, lucideFileDown, lucideFileUp,
+  lucideFiles, lucideHistory, lucideHouse, lucideKeyRound, lucideLogIn,
+  lucideLogOut, lucideMail, lucideMonitor, lucideMoon, lucidePackage, lucidePencil, lucidePlus, lucideSave,
+  lucideSettings, lucideShield, lucideStar, lucideSun, lucideTrash2, lucideUpload, lucideUsers, lucideX,
+} from "@ng-icons/lucide";
 
 import { AppComponent } from "./app/app.component";
 import { environment } from "./environments/environment";
@@ -40,7 +54,16 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideZoneChangeDetection(),importProvidersFrom(
+    provideZoneChangeDetection(),
+    provideIcons({
+      lucideCheck, lucideChevronLeft, lucideChevronRight, lucideChevronsLeft,
+      lucideChevronsRight, lucideClipboard, lucideClipboardList, lucideDownload,
+      lucideExternalLink, lucideEye, lucideEyeOff, lucideFileDown, lucideFileUp,
+      lucideFiles, lucideHistory, lucideHouse, lucideKeyRound, lucideLogIn,
+      lucideLogOut, lucideMail, lucideMonitor, lucideMoon, lucidePackage, lucidePencil, lucidePlus, lucideSave,
+      lucideSettings, lucideShield, lucideStar, lucideSun, lucideTrash2, lucideUpload, lucideUsers, lucideX,
+    }),
+    importProvidersFrom(
       BrowserModule,
       BrowserAnimationsModule,
       StoreModule.forRoot({}),
@@ -62,7 +85,7 @@ bootstrapApplication(AppComponent, {
       MatDialogModule
     ),
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     authInterceptorProvider,
     loggingInterceptorProvider,
     provideAppInitializer(() => AuthInitializer(inject(AuthService))()),

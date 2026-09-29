@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Contracts.Notification.Services;
+using ClassifiedAds.Contracts.Notification.Services;
 using ClassifiedAds.Domain.Repositories;
 using ClassifiedAds.Modules.Notification.ConfigurationOptions;
 using ClassifiedAds.Modules.Notification.Entities;
@@ -46,11 +46,6 @@ public static class ServiceCollectionExtensions
         services.AddNotificationServices(settings);
 
         return services;
-    }
-
-    public static IMvcBuilder AddNotificationModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateNotificationDb(this IApplicationBuilder app)

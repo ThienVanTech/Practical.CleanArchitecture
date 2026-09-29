@@ -1,5 +1,4 @@
-﻿using ClassifiedAds.Application;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
+using ClassifiedAds.Application;
 using ClassifiedAds.Services.Product.Authorization;
 using ClassifiedAds.Services.Product.Models;
 using ClassifiedAds.Services.Product.Queries;
@@ -13,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAds.Services.Product.Api.Endpoints;
 
-public class GetProductsRequest : IEndpointHandler
+public class GetProductsRequest
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet("api/products", HandleAsync)
         .RequireAuthorization(Permissions.GetProducts)

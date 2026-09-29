@@ -1,6 +1,5 @@
-﻿using ClassifiedAds.Application;
+using ClassifiedAds.Application;
 using ClassifiedAds.CrossCuttingConcerns.Csv;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
 using ClassifiedAds.Services.Product.Csv;
 using ClassifiedAds.Services.Product.Queries;
 using ClassifiedAds.Services.Product.RateLimiterPolicies;
@@ -13,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace ClassifiedAds.Services.Product.Api.Endpoints;
 
-public class ExportProductsAsCsvRequest : IEndpointHandler
+public class ExportProductsAsCsvRequest
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet("api/products/exportascsv", HandleAsync)
         .RequireAuthorization()

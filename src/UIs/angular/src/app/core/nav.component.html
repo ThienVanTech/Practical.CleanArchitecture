@@ -1,19 +1,19 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="/">{{ pageTitle | appendVersion }}</a>
-  <ul class="nav nav-pills">
+<nav class="navbar navbar-expand bg-body">
+  <a class="navbar-brand" href="/"><app-action-icon action="home" />{{ pageTitle | appendVersion }}</a>
+  <ul class="nav nav-tabs flex-grow-1 flex-nowrap nav-pages">
     <li>
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/welcome']"
-        >Home
+        ><app-action-icon action="home" />Home
       </a>
     </li>
     <li>
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/settings']"
-        >Settings
+        ><app-action-icon action="settings" />Settings
       </a>
     </li>
     <li>
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/files']">
-        Files
+        <app-action-icon action="files" />Files
       </a>
     </li>
     <li>
@@ -22,36 +22,32 @@
         routerLinkActive="active"
         [routerLink]="['/products']"
         >
-        Products
+        <app-action-icon action="products" />Products
       </a>
     </li>
     <li>
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/users']">
-        Users
+        <app-action-icon action="users" />Users
       </a>
     </li>
+    <li><a class="nav-link" routerLinkActive="active" [routerLink]="['/roles']"><app-action-icon action="roles" />Roles</a></li>
     <li>
       <a
         class="nav-link"
         routerLinkActive="active"
         [routerLink]="['/auditlogs']"
         >
-        Audit Logs
+        <app-action-icon action="audit" />Audit Logs
       </a>
     </li>
+  </ul>
+  <div class="nav-utilities d-flex align-items-center gap-2 ms-auto flex-shrink-0">
     @if (!auth.isAuthenticated()) {
-      <li>
-        <a class="nav-link" (click)="login()" href="javascript:void(0)">
-          Login
-        </a>
-      </li>
+      <a class="nav-link" (click)="login()" href="javascript:void(0)"><app-action-icon action="login" />Login</a>
     }
     @if (auth.isAuthenticated()) {
-      <li>
-        <a class="nav-link" (click)="logout()" href="javascript:void(0)">
-          Logout
-        </a>
-      </li>
+      <a class="nav-link" (click)="logout()" href="javascript:void(0)"><app-action-icon action="logout" />Logout</a>
     }
-  </ul>
+    <app-theme-switcher />
+  </div>
 </nav>

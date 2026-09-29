@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ChangeDetectionStrategy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -12,11 +12,14 @@ import { NgForm } from "@angular/forms";
 import { StarComponent } from "../../shared/star.component";
 import { DeleteProductComponent } from "../delete-product/delete-product.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { FilePickerComponent } from "../../shared/file-picker.component";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   templateUrl: "./list-products.component.html",
   styleUrls: ["./list-products.component.css"],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     FormsModule,
@@ -24,6 +27,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     StarComponent,
     DeleteProductComponent,
     MatDialogModule,
+    ActionIconComponent, FilePickerComponent,
   ],
 })
 export class ListProductsComponent implements OnInit {
@@ -137,8 +141,8 @@ export class ListProductsComponent implements OnInit {
     });
   }
 
-  handleFileInput(files: FileList) {
-    this.importingFile = files.item(0);
+  handleFileInput(files: FileList | null) {
+    this.importingFile = files?.item(0) ?? null;
   }
 
   confirmImportCsvFile(form: NgForm) {

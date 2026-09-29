@@ -10,14 +10,21 @@ public static class SignalRConfiguration
 {
     public static IServiceCollection AddClassifiedAdsSignalR(this IServiceCollection services, AppSettings appSettings)
     {
-        var signalR = services.AddSignalR();
+        var signalRBuilder = services.AddSignalR();
 
-        if (appSettings.Azure?.SignalR?.IsEnabled ?? false)
+        if (appSettings.SignalR?.UseMessagePack == true)
         {
-            signalR.AddAzureSignalR();
+            signalRBuilder.AddMessagePackProtocol();
         }
 
-        signalR.AddMessagePackProtocol();
+        if (appSettings.SignalR?.Backplane?.Provider == "Redis")
+        {
+            signalRBuilder.AddStackExchangeRedis(appSettings.SignalR.Backplane.Redis.ConnectionString);
+        }
+        else if (appSettings.SignalR?.Backplane?.Provider == "Azure")
+        {
+            signalRBuilder.AddAzureSignalR(appSettings.SignalR.Backplane.Azure.ConnectionString);
+        }
 
         return services;
     }

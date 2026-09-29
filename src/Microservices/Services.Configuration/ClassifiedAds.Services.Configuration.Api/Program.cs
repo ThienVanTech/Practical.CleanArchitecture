@@ -1,6 +1,7 @@
-﻿using ClassifiedAds.Infrastructure.Logging;
+using ClassifiedAds.Infrastructure.Logging;
 using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
+using ClassifiedAds.Services.Configuration.Api;
 using ClassifiedAds.Services.Configuration.ConfigurationOptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -38,15 +39,8 @@ services.AddMonitoringServices(appSettings.Monitoring);
 
 services.AddExceptionHandler<GlobalExceptionHandler>();
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-});
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
 services.AddCors(options =>
 {
@@ -203,6 +197,6 @@ app.UseSwaggerUI(setupAction =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapApplicationEndpoints();
 
 app.Run();

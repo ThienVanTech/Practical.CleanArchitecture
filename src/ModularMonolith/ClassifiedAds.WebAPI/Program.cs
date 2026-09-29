@@ -1,10 +1,11 @@
-﻿using ClassifiedAds.Contracts.Identity.Services;
+using ClassifiedAds.Contracts.Identity.Services;
 using ClassifiedAds.Infrastructure.Logging;
 using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
 using ClassifiedAds.Modules.Identity.Persistence;
 using ClassifiedAds.Modules.Identity.Services;
 using ClassifiedAds.Modules.Notification.Hubs;
+using ClassifiedAds.WebAPI;
 using ClassifiedAds.WebAPI.ConfigurationOptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,21 +43,8 @@ services.AddExceptionHandler<GlobalExceptionHandler>();
 
 services.AddCaches(appSettings.Caching);
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-})
-.AddAuditLogModule()
-.AddConfigurationModule()
-.AddIdentityModule()
-.AddNotificationModule()
-.AddProductModule()
-.AddStorageModule();
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
 services.AddSignalR();
 
@@ -241,7 +229,7 @@ app.UseAuthorization();
 
 app.UseRateLimiter();
 
-app.MapControllers();
+app.MapApplicationEndpoints();
 app.MapHub<NotificationHub>("/hubs/notification").RequireCors("SignalRHubs");
 
 app.Run();

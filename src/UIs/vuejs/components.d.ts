@@ -11,13 +11,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ActionIcon: typeof import('./src/components/ActionIcon.vue')['default']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     CopyToClipboard: typeof import('./src/components/CopyToClipboard.vue')['default']
+    FilePicker: typeof import('./src/components/FilePicker.vue')['default']
     Notification: typeof import('./src/components/Notification.vue')['default']
     Pagination: typeof import('./src/components/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Star: typeof import('./src/components/Star.vue')['default']
+    ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
     Timer: typeof import('./src/components/Timer.vue')['default']
   }
 }

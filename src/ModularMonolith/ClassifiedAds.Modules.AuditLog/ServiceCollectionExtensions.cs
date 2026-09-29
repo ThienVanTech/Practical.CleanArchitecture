@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Contracts.AuditLog.Services;
+using ClassifiedAds.Contracts.AuditLog.Services;
 using ClassifiedAds.Domain.Repositories;
 using ClassifiedAds.Modules.AuditLog.ConfigurationOptions;
 using ClassifiedAds.Modules.AuditLog.Entities;
@@ -8,9 +8,9 @@ using ClassifiedAds.Modules.AuditLog.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using RateLimiterPolicyNames = ClassifiedAds.Modules.AuditLog.RateLimiterPolicies.RateLimiterPolicyNames;
 using System;
 using System.Reflection;
-using RateLimiterPolicyNames = ClassifiedAds.Modules.AuditLog.RateLimiterPolicies.RateLimiterPolicyNames;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -49,11 +49,6 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
-    }
-
-    public static IMvcBuilder AddAuditLogModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateAuditLogDb(this IApplicationBuilder app)

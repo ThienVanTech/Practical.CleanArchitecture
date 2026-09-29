@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Router, ActivatedRoute } from "@angular/router";
@@ -7,13 +7,16 @@ import { debounceTime } from "rxjs/operators";
 
 import { IProduct } from "../product";
 import { ProductService } from "../product.service";
+import { NgIcon } from "@ng-icons/core";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   selector: "app-edit-product",
   templateUrl: "./edit-product.component.html",
   styleUrls: ["./edit-product.component.css"],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, NgIcon, ActionIconComponent],
 })
 export class EditProductComponent implements OnInit {
   product: IProduct;

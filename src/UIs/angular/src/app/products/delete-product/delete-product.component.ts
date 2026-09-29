@@ -1,15 +1,25 @@
-import { Component, OnInit, TemplateRef, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { IProduct } from "../product";
 import { MatDialogModule } from "@angular/material/dialog";
+import { ActionIconComponent } from "../../shared/action-icon.component";
 
 @Component({
   selector: "app-delete-product",
   templateUrl: "./delete-product.component.html",
   styleUrls: ["./delete-product.component.css"],
   standalone: true,
-  imports: [MatDialogModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [MatDialogModule, ActionIconComponent],
 })
 export class DeleteProductComponent implements OnInit {
   @Input() product: IProduct;

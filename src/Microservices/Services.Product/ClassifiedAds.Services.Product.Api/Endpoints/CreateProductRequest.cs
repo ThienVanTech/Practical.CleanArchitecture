@@ -1,5 +1,4 @@
-﻿using ClassifiedAds.Application;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
+using ClassifiedAds.Application;
 using ClassifiedAds.Services.Product.Authorization;
 using ClassifiedAds.Services.Product.Commands;
 using ClassifiedAds.Services.Product.RateLimiterPolicies;
@@ -42,9 +41,9 @@ public class CreateProductResponse
     public string Description { get; set; }
 }
 
-public class CreateProductRequestHandler : IEndpointHandler
+public class CreateProductRequestHandler
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPost("api/products", HandleAsync)
         .RequireAuthorization(Permissions.AddProduct)

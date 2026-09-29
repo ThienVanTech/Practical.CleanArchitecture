@@ -1,5 +1,4 @@
-﻿using ClassifiedAds.CrossCuttingConcerns.Csv;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
+using ClassifiedAds.CrossCuttingConcerns.Csv;
 using ClassifiedAds.Services.Product.Csv;
 using ClassifiedAds.Services.Product.RateLimiterPolicies;
 using Microsoft.AspNetCore.Builder;
@@ -15,9 +14,9 @@ public class ImportCsvRequest
     public IFormFile FormFile { get; set; }
 }
 
-public class ImportCsvRequestHandler : IEndpointHandler
+public class ImportCsvRequestHandler
 {
-    public static void MapEndpoint(IEndpointRouteBuilder builder)
+    public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPost("api/products/importcsv", HandleAsync)
         .RequireAuthorization()

@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Infrastructure.Logging;
+using ClassifiedAds.Infrastructure.Logging;
 using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
 using ClassifiedAds.Services.Notification.ConfigurationOptions;
@@ -38,15 +38,8 @@ services.AddMonitoringServices(appSettings.Monitoring);
 
 services.AddExceptionHandler<GlobalExceptionHandler>();
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-});
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
 services.AddSignalR();
 
@@ -213,7 +206,6 @@ app.UseSwaggerUI(setupAction =>
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
 app.MapHub<NotificationHub>("/hubs/notification").RequireCors("SignalRHubs");
 
 app.Run();

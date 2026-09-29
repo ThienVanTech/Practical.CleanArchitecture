@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.CrossCuttingConcerns.Excel;
+using ClassifiedAds.CrossCuttingConcerns.Excel;
 using ClassifiedAds.Domain.Repositories;
 using ClassifiedAds.Modules.Configuration.ConfigurationOptions;
 using ClassifiedAds.Modules.Configuration.Entities;
@@ -44,11 +44,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IExcelWriter<ExportConfigurationEntriesToExcel>, ExportConfigurationEntriesToExcelHandler>();
 
         return services;
-    }
-
-    public static IMvcBuilder AddConfigurationModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateConfigurationDb(this IApplicationBuilder app)

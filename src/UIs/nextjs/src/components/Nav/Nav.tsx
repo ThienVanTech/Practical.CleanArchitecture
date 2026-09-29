@@ -3,6 +3,8 @@
 import Link from "next/link";
 import classes from "./Nav.module.css";
 import { usePathname } from "next/navigation";
+import ActionIcon from "../ActionIcon/ActionIcon";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 interface NavProps {
   isAuthenticated: boolean;
@@ -20,13 +22,14 @@ const Nav = ({ isAuthenticated }: NavProps) => {
 
   return (
     <nav
-      className={"navbar navbar-expand navbar-light bg-light " + classes.Nav}
+      className={"navbar navbar-expand bg-body " + classes.Nav}
       style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
     >
       <Link className="navbar-brand" href="/">
+        <ActionIcon action="home" />
         {pageTitle + " " + nextVersion}
       </Link>
-      <ul className="nav nav-pills">
+      <ul className={"nav nav-tabs flex-grow-1 flex-nowrap " + classes.Tabs}>
         <li>
           <Link
             className={
@@ -36,7 +39,7 @@ const Nav = ({ isAuthenticated }: NavProps) => {
             }
             href="/home"
           >
-            Home
+            <ActionIcon action="home" /> Home
           </Link>
         </li>
         <li>
@@ -44,7 +47,7 @@ const Nav = ({ isAuthenticated }: NavProps) => {
             className={isActive("/settings") ? "nav-link active" : "nav-link"}
             href="/settings"
           >
-            Settings
+            <ActionIcon action="settings" /> Settings
           </Link>
         </li>
         <li>
@@ -52,7 +55,7 @@ const Nav = ({ isAuthenticated }: NavProps) => {
             className={isActive("/files") ? "nav-link active" : "nav-link"}
             href="/files"
           >
-            Files
+            <ActionIcon action="files" /> Files
           </Link>
         </li>
         <li>
@@ -60,7 +63,7 @@ const Nav = ({ isAuthenticated }: NavProps) => {
             className={isActive("/products") ? "nav-link active" : "nav-link"}
             href="/products"
           >
-            Products
+            <ActionIcon action="products" /> Products
           </Link>
         </li>
         <li>
@@ -68,34 +71,25 @@ const Nav = ({ isAuthenticated }: NavProps) => {
             className={isActive("/users") ? "nav-link active" : "nav-link"}
             href="/users"
           >
-            Users
+            <ActionIcon action="users" /> Users
           </Link>
         </li>
+        <li><Link className={isActive("/roles") ? "nav-link active" : "nav-link"} href="/roles"><ActionIcon action="roles" /> Roles</Link></li>
         <li>
           <Link
             className={isActive("/auditlogs") ? "nav-link active" : "nav-link"}
             href="/auditlogs"
           >
-            Audit Logs
+            <ActionIcon action="audit" /> Audit Logs
           </Link>
         </li>
 
-        {!isAuthenticated ? (
-          <li>
-            <Link className="nav-link" href="/login">
-              Login
-            </Link>
-          </li>
-        ) : null}
-
-        {isAuthenticated ? (
-          <li>
-            <Link className="nav-link" href="/logout">
-              Logout
-            </Link>
-          </li>
-        ) : null}
       </ul>
+      <div className="d-flex align-items-center gap-2 ms-auto flex-shrink-0">
+        {!isAuthenticated ? <Link className="nav-link" href="/login"><ActionIcon action="login" /> Login</Link> : null}
+        {isAuthenticated ? <Link className="nav-link" href="/logout"><ActionIcon action="logout" /> Logout</Link> : null}
+        <ThemeSwitcher />
+      </div>
     </nav>
   );
 };

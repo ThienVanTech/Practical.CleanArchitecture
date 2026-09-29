@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.Domain.Infrastructure.Messaging;
+using ClassifiedAds.Domain.Infrastructure.Messaging;
 using ClassifiedAds.Domain.Repositories;
 using ClassifiedAds.Infrastructure.HostedServices;
 using ClassifiedAds.Modules.Storage.ConfigurationOptions;
@@ -47,11 +47,6 @@ public static class ServiceCollectionExtensions
         services.AddAuthorizationPolicies(Assembly.GetExecutingAssembly());
 
         return services;
-    }
-
-    public static IMvcBuilder AddStorageModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateStorageDb(this IApplicationBuilder app)

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { IAuditLogEntry } from "./audit-log";
 import { Store } from "@ngrx/store";
@@ -6,13 +6,15 @@ import { AuditLogState } from "./audit-log.reducer";
 import * as actions from "./audit-log.actions";
 import { CopyToClipboardComponent } from "../shared/copy-to-clipboard.component";
 import { PaginationComponent } from "../shared/pagination.component";
+import { ActionIconComponent } from "../shared/action-icon.component";
 
 @Component({
   selector: "app-audit-log-list",
   templateUrl: "./audit-log-list.component.html",
   styleUrls: ["./audit-log-list.component.css"],
   standalone: true,
-  imports: [CommonModule, CopyToClipboardComponent, PaginationComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [CommonModule, CopyToClipboardComponent, PaginationComponent, ActionIconComponent],
 })
 export class AuditLogListComponent implements OnInit {
   auditLogs: IAuditLogEntry[] = [];

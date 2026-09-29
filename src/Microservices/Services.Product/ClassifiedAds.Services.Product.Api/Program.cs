@@ -1,7 +1,7 @@
-﻿using ClassifiedAds.Infrastructure.Logging;
+using ClassifiedAds.Infrastructure.Logging;
 using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
-using ClassifiedAds.Infrastructure.Web.MinimalApis;
+using ClassifiedAds.Services.Product.Api;
 using ClassifiedAds.Services.Product.ConfigurationOptions;
 using ClassifiedAds.Services.Product.RateLimiterPolicies;
 using FluentValidation;
@@ -40,15 +40,8 @@ services.AddMonitoringServices(appSettings.Monitoring);
 
 services.AddExceptionHandler<GlobalExceptionHandler>();
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-});
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
 services.ConfigureHttpJsonOptions(options =>
 {
@@ -96,7 +89,6 @@ services.AddAuthentication(options =>
     };
 });
 
-services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(setupAction =>
 {
     setupAction.SwaggerDoc(
@@ -227,8 +219,6 @@ app.UseAuthorization();
 
 app.UseRateLimiter();
 
-app.MapControllers();
-
-app.MapEndpointHandlers(Assembly.GetCallingAssembly());
+app.MapApplicationEndpoints();
 
 app.Run();

@@ -1,6 +1,7 @@
-﻿using ClassifiedAds.Infrastructure.Logging;
+using ClassifiedAds.Infrastructure.Logging;
 using ClassifiedAds.Infrastructure.Monitoring;
 using ClassifiedAds.Infrastructure.Web.ExceptionHandlers;
+using ClassifiedAds.Services.AuditLog.Api;
 using ClassifiedAds.Services.AuditLog.ConfigurationOptions;
 using ClassifiedAds.Services.AuditLog.RateLimiterPolicies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,16 +39,8 @@ services.AddMonitoringServices(appSettings.Monitoring);
 
 services.AddExceptionHandler<GlobalExceptionHandler>();
 
-services.AddControllers(configure =>
-{
-})
-.ConfigureApiBehaviorOptions(options =>
-{
-})
-.AddJsonOptions(options =>
-{
-})
-.AddDapr();
+services.AddEndpointsApiExplorer();
+services.AddAuthorization();
 
 services.AddCors(options =>
 {
@@ -217,6 +210,6 @@ app.UseAuthorization();
 app.UseRateLimiter();
 
 app.MapSubscribeHandler();
-app.MapControllers();
+app.MapApplicationEndpoints();
 
 app.Run();

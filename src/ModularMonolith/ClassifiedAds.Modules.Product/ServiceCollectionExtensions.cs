@@ -1,4 +1,4 @@
-﻿using ClassifiedAds.CrossCuttingConcerns.Csv;
+using ClassifiedAds.CrossCuttingConcerns.Csv;
 using ClassifiedAds.CrossCuttingConcerns.Html;
 using ClassifiedAds.CrossCuttingConcerns.Pdf;
 using ClassifiedAds.Domain.Infrastructure.Messaging;
@@ -65,11 +65,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPdfWriter<ExportProductsToPdf>, ExportProductsToPdfHandler>();
 
         return services;
-    }
-
-    public static IMvcBuilder AddProductModule(this IMvcBuilder builder)
-    {
-        return builder.AddApplicationPart(Assembly.GetExecutingAssembly());
     }
 
     public static void MigrateProductDb(this IApplicationBuilder app)
