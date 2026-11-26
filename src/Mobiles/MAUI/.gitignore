@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+**/TestResults/
+artifacts/
+*.user
+*.tar.gz
+
+# Generated public Sentry configuration; upload tokens belong only in CI.
+sentry.config.json
+sentry.properties
+.sentryclirc
